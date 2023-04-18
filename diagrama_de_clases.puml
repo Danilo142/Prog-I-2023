@@ -1,0 +1,34 @@
+@startuml
+
+class User {
+    -Int id
+    -String name
+    -String last_name
+    -String password
+    -Sting email
+    -String phone
+}
+
+Class Vehicle {
+    -Int id
+    -String type
+    -String model
+    -String patent
+}
+
+Class Parking {
+    -Int id
+    -Int capacity
+    -Int spaces
+}
+
+Class Parking_record {
+    -Int id
+    -Int user_id
+    -Int vehicle_id
+    -Int parking_id
+    -Date entry_date
+    -Date exit_date
+}
+
+

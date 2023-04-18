@@ -8,8 +8,8 @@ class User(db.Model):
     password = db.Column(db.String(50), nullable=False)
     
     #foreign keys
+    patents = db.Column(db.Integer, db.ForeignKey('vehicle.patents'), nullable=False)
 
-    patents = db.relationship('Patent', backref='user', lazy=True)
 
     #esto es para que no se repitan los datos en la base de datos en la tabla user 
     def __repr__(self):
