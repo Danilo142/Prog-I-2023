@@ -10,6 +10,9 @@ class User(db.Model):
     #foreign keys
     patents = db.Column(db.Integer, db.ForeignKey('vehicle.patents'), nullable=False)
 
+    #Relaciones
+    vehicle = db.relationship('Vehicle', backref='user', lazy=True)
+    parking = db.relationship('Parking', backref='user', lazy=True)
 
     #esto es para que no se repitan los datos en la base de datos en la tabla user 
     def __repr__(self):

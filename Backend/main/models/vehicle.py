@@ -9,6 +9,10 @@ class Vehicle(db.Model):
     #Foreign Keys
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    #Relaciones
+    user = db.relationship('User', backref='vehicle', lazy=True)
+    parking = db.relationship('Parking', backref='vehicle', lazy=True)
+    
     def __repr__(self):
         return '<Vehicle %r>' % self.patents, self.model, self.color, self.owner_id
 

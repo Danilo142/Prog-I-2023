@@ -15,12 +15,15 @@ class Parking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     patents = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
 
+    #Relaciones
+    user = db.relationship('User', backref='parking', lazy=True)
+    vehicle = db.relationship('Vehicle', backref='parking', lazy=True)
 
     # Definimos la restricción CHECK para limitar la cantidad de filas
-    __table_args__ = (
+    '''__table_args__ = (
         CheckConstraint('SELECT COUNT(*) < 50 FROM mytable'),
     )
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    '''                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
 
 

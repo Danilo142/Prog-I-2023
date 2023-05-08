@@ -1,3 +1,4 @@
+'''
 from .. import db
 
 class Parking(db.Model):
@@ -10,3 +11,4 @@ class Parking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     patents = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
 
+'''
