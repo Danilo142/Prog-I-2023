@@ -114,9 +114,15 @@ body{
     display: inline;
     font-family: 'Raleway', sans-serif;
     
+    
+    
   }
-
+  <style>
+   <p> {
+    color: #fafafa
+    }
 img{
   border-radius: 30px;
 }
+
 
