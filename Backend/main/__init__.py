@@ -25,11 +25,11 @@ def create_app():
     import main.resources as resources
     
     api.add_resource(resources.UsersResource, '/users')
-    api.add_resource(resources.UserResource, '/user/<int:id>')
+    api.add_resource(resources.UserResource, '/user/<id>')
     api.add_resource(resources.VehiclesResource, '/vehicles')
-    api.add_resource(resources.VehicleResource, '/vehicle/<int:id>')
+    api.add_resource(resources.VehicleResource, '/vehicle/<id>')
     api.add_resource(resources.ParkingsResource, '/parkings')
-    api.add_resource(resources.ParkinsResource, '/parking/<int:id>')
+    api.add_resource(resources.ParkingResource, '/parking/<id>')
     
     api.init_app(app)
     

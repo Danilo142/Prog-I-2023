@@ -13,7 +13,7 @@ class Parking(db.Model):
     
     #Foreign Keys
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    patents = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
+    patents = db.Column(db.Integer, db.ForeignKey('vehicle.patents'), nullable=False)
 
     #Relaciones
     user = db.relationship('User', backref='parking', lazy=True)
