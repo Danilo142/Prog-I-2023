@@ -12,12 +12,12 @@ class Parking(db.Model):
     date_of_exit = db.Column(db.DateTime, nullable=False)
     
     #Foreign Keys
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    patents = db.Column(db.Integer, db.ForeignKey('vehicle.patents'), nullable=False)
+    #user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
 
     #Relaciones
-    user = db.relationship('User', backref='parking', lazy=True)
-    vehicle = db.relationship('Vehicle', backref='parking', lazy=True)
+    #user = db.relationship('User', backref='parking', lazy=True)
+    #vehicle = db.relationship('Vehicle', backref='parking', lazy=True)
 
     # Definimos la restricción CHECK para limitar la cantidad de filas
     '''__table_args__ = (
@@ -48,6 +48,6 @@ class Parking(db.Model):
         user_id = json_parking.get('user_id')
         patents = json_parking.get('patents')
         return Parking(id=id, date_of_admission=date_of_admission, date_of_exit=date_of_exit, user_id=user_id, patents=patents)
-    
+
     
        
