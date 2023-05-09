@@ -17,7 +17,7 @@ def create_app():
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    #Url de configuración de base de datos
+
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
     db.init_app(app)
 

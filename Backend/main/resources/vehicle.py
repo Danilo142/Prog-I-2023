@@ -10,6 +10,7 @@ class Vehicle(Resource):
     def get(self, id):
         vehicle = db.session.query(VehicleModel).get_or_404(id)
         return vehicle.to_json()
+    
     def delete(self, id):
         vehicle = db.session.query(VehicleModel).get_or_404(id)
         db.session.delete(vehicle)
@@ -24,6 +25,28 @@ class Vehicle(Resource):
         db.session.add(vehicle)
         db.session.commit()
         return vehicle.to_json(), 201
+
+
+
+
+    '''def get(self, id):
+        vehicle = db.session.query(VehicleModel).get_or_404(id)
+        return vehicle.to_json()
+    
+    def delete(self, id):
+        vehicle = db.session.query(VehicleModel).get_or_404(id)
+        db.session.delete(vehicle)
+        db.session.commit()
+        return '', 204
+    
+    def put(self, id):
+        vehicle = db.session.query(VehicleModel).get_or_404(id)
+        data = request.get_json().items()
+        for key, value in data:
+            setattr(vehicle, key, value)
+        db.session.add(vehicle)
+        db.session.commit()
+        return vehicle.to_json(), 201'''
     
 class Vehicles(Resource):
     def get(self):
