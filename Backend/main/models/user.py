@@ -20,7 +20,7 @@ class User(db.Model):
             'name': self.name,
             'email': self.email,
             'password': self.password,
-            "vehicles": self.vehicles
+            "vehicles": [vehicle.to_json() for vehicle in self.vehicles]
         }
         return json_user
     
