@@ -13,6 +13,8 @@ class Parking(db.Model):
     # Relationships
     vehicle = db.relationship('Vehicle', back_populates='parkings', lazy=True)
 
+    records = db.relationship('Record', back_populates='parking', lazy=True)
+
     def __repr__(self):
         return '<Parking %r>' % self.id, self.date_of_admission, self.date_of_exit, self.vehicle_patent
 

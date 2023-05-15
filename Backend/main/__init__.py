@@ -30,6 +30,8 @@ def create_app():
     api.add_resource(resources.VehicleResource, '/vehicle/<id>')
     api.add_resource(resources.ParkingsResource, '/parkings')
     api.add_resource(resources.ParkingResource, '/parking/<id>')
+    api.add_resource(resources.RecordsResource, '/records')
+    api.add_resource(resources.RecordResource, '/record/<id>')
     
     api.init_app(app)
     
