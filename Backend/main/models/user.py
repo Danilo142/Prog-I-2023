@@ -10,6 +10,7 @@ class User(db.Model):
     
     #Relaciones
     vehicles = db.relationship('Vehicle', back_populates='owner', lazy=True)
+    
 
     def __repr__(self):
         return '<User %r>' % self.id, self.name, self.email, self.password, self.vehicles
