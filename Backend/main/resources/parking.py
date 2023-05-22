@@ -5,13 +5,18 @@ from main.models import RecordModel
 from .. import db
 from datetime import datetime
 from sqlalchemy import inspect
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import admin_required
 
 
 class Parking(Resource):
+
+    @jwt_required(optional=True)
     def get(self, id):
         parking = db.session.query(ParkingModel).get_or_404(id)
         return parking.to_json()
     
+    @jwt_required()
     def delete(self, id):
         parking = db.session.query(ParkingModel).get_or_404(id)
         db.session.delete(parking)
