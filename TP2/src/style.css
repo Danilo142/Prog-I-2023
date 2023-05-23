@@ -117,12 +117,9 @@ body{
     
     
   }
-  <style>
-   <p> {
-    color: #fafafa
-    }
-img{
-  border-radius: 30px;
-}
+  h3{
+    display: inline;
+    font-family: 'Raleway', sans-serif;
+  }
 
-
+  

@@ -8,7 +8,6 @@ api = Api()
 
 db = SQLAlchemy()
 
-
 def create_app():
     app = Flask(__name__)
     load_dotenv()
