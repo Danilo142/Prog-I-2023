@@ -11,6 +11,7 @@ class Vehicle(db.Model):
 
     #Relaciones
     owner = db.relationship('User', back_populates='vehicles', lazy=True)
+    parkings = db.relationship('Parking', back_populates='vehicle', lazy=True)
     
     def __repr__(self):
         return '<Vehicle %r>' % self.patent, self.model, self.color, self.owner_id
