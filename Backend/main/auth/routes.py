@@ -55,7 +55,7 @@ def refresh_token():
     return jsonify(access_token=access_token)
 
 
-# Only allow fresh JWTs to access this route with the `fresh=True` arguement.
+
 @auth.route("/protected", methods=["GET"])
 @jwt_required(fresh=True)
 def protected():

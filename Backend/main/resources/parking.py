@@ -25,46 +25,63 @@ class Parking(Resource):
     
     '''def put(self, id):
         parking = ParkingModel.query.get_or_404(id)
-        data = request.get_json()
+        if parking.available:
+            data = request.get_json()
+            parking.date_of_admission = datetime.strptime(data['date_of_admission'], '%Y-%m-%d %H:%M:%S')
+            parking.date_of_exit = datetime.strptime(data['date_of_exit'], '%Y-%m-%d %H:%M:%S')
+            parking.vehicle_patent = data['vehicle_patent']
+            db.session.commit()
+        else:
+            record = RecordModel(
+                date_of_admission=parking.date_of_admission,
+                date_of_exit=parking.date_of_exit,
+                vehicle_patent=parking.vehicle_patent,
+                parking=parking
+            )
+            db.session.add(record)
+            db.session.commit()
 
-        date_of_admission_str = data.get('date_of_admission')
-        date_of_admission = datetime.strptime(date_of_admission_str, '%Y-%m-%d %H:%M:%S')
-        date_of_exit_str = data.get('date_of_exit')
-        date_of_exit = datetime.strptime(date_of_exit_str, '%Y-%m-%d %H:%M:%S')
+            parking.date_of_admission = None
+            parking.date_of_exit = None
+            parking.vehicle_patent = None   
+            parking.available = True
+            db.session.commit()
+            
+        return parking.to_json(), 200
+        '''
 
-        parking.date_of_admission = date_of_admission
-        parking.date_of_exit = date_of_exit
-        parking.vehicle_patent = data.get('vehicle_patent')
-        db.session.commit()
-
-        return parking.to_json(), 201
-
-    '''
     def put(self, id):
         parking = ParkingModel.query.get_or_404(id)
-        data = request.get_json()
+        if parking.available:
+            data = request.get_json()
+            try:
+                parking.date_of_admission = datetime.strptime(data['date_of_admission'], '%Y-%m-%d %H:%M:%S')
+            except TypeError:
+                parking.date_of_admission = None
+            try:
+                parking.date_of_exit = datetime.strptime(data['date_of_exit'], '%Y-%m-%d %H:%M:%S')
+            except TypeError:
+                parking.date_of_exit = None
+            parking.vehicle_patent = data['vehicle_patent'] if data['vehicle_patent'] is not None else None
+            db.session.commit()
+        else:
+            record = RecordModel(
+                date_of_admission=parking.date_of_admission,
+                date_of_exit=parking.date_of_exit,
+                vehicle_patent=parking.vehicle_patent,
+                parking=parking
+            )
+            db.session.add(record)
+            db.session.commit()
 
-        date_of_admission_str = data.get('date_of_admission')
-        date_of_admission = datetime.strptime(date_of_admission_str, '%Y-%m-%d %H:%M:%S')
-        date_of_exit_str = data.get('date_of_exit')
-        date_of_exit = datetime.strptime(date_of_exit_str, '%Y-%m-%d %H:%M:%S')
-
-        parking.date_of_admission = date_of_admission
-        parking.date_of_exit = date_of_exit
-        parking.vehicle_patent = data.get('vehicle_patent')
-        db.session.commit()
-
-        # Create a record
-        record = RecordModel(
-            date_of_admission=date_of_admission,
-            date_of_exit=date_of_exit,
-            vehicle_patent=parking.vehicle_patent,
-            parking_id=parking.id
-        )
-        db.session.add(record)
-        db.session.commit()
-
-        return parking.to_json(), 201
+            parking.date_of_admission = None
+            parking.date_of_exit = None
+            parking.vehicle_patent = None   
+            parking.available = True
+            db.session.commit()
+            
+        return parking.to_json(), 200
+    
 
 class Parkings(Resource):
     def get(self):
@@ -73,11 +90,8 @@ class Parkings(Resource):
             
     def post(self):
 
-        max_parking = db.session.query(ParkingModel).count()
-        if max_parking >= 3:
-            return 'No hay estacionamientos disponibles', 400
         data = request.get_json()
-        parking = ParkingModel.from_json(data)  
+        parking = ParkingModel.from_json(data)
         db.session.add(parking)
         db.session.commit()
         return parking.to_json(), 201
