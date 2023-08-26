@@ -1,7 +1,6 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from main.models import ParkingModel
-from main.models import RecordModel
 from .. import db
 from datetime import datetime
 from sqlalchemy import inspect
@@ -23,64 +22,26 @@ class Parking(Resource):
         db.session.commit()
         return '', 204
     
-    '''def put(self, id):
-        parking = ParkingModel.query.get_or_404(id)
-        if parking.available:
-            data = request.get_json()
-            parking.date_of_admission = datetime.strptime(data['date_of_admission'], '%Y-%m-%d %H:%M:%S')
-            parking.date_of_exit = datetime.strptime(data['date_of_exit'], '%Y-%m-%d %H:%M:%S')
-            parking.vehicle_patent = data['vehicle_patent']
-            db.session.commit()
-        else:
-            record = RecordModel(
-                date_of_admission=parking.date_of_admission,
-                date_of_exit=parking.date_of_exit,
-                vehicle_patent=parking.vehicle_patent,
-                parking=parking
-            )
-            db.session.add(record)
-            db.session.commit()
-
-            parking.date_of_admission = None
-            parking.date_of_exit = None
-            parking.vehicle_patent = None   
-            parking.available = True
-            db.session.commit()
-            
-        return parking.to_json(), 200
-        '''
-
     def put(self, id):
-        parking = ParkingModel.query.get_or_404(id)
-        if parking.available:
-            data = request.get_json()
-            try:
-                parking.date_of_admission = datetime.strptime(data['date_of_admission'], '%Y-%m-%d %H:%M:%S')
-            except TypeError:
-                parking.date_of_admission = None
-            try:
-                parking.date_of_exit = datetime.strptime(data['date_of_exit'], '%Y-%m-%d %H:%M:%S')
-            except TypeError:
-                parking.date_of_exit = None
-            parking.vehicle_patent = data['vehicle_patent'] if data['vehicle_patent'] is not None else None
-            db.session.commit()
-        else:
-            record = RecordModel(
-                date_of_admission=parking.date_of_admission,
-                date_of_exit=parking.date_of_exit,
-                vehicle_patent=parking.vehicle_patent,
-                parking=parking
-            )
-            db.session.add(record)
-            db.session.commit()
-
-            parking.date_of_admission = None
-            parking.date_of_exit = None
-            parking.vehicle_patent = None   
-            parking.available = True
-            db.session.commit()
+        parking = db.session.query(ParkingModel).get_or_404(id)
+        data = request.get_json().items()
+        for key, value in data:
+            if key in ['date_of_admission', 'date_of_exit']:
+                value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+            setattr(parking, key, value)
             
+        if parking.available:
+            parking.available = False
+            parking.date_of_admission = datetime.utcnow()
+            parking.date_of_exit = None
+        else:
+            parking.date_of_exit = datetime.utcnow()
+            parking.available = True
+            parking.vehicle_patent = None
+
+        db.session.commit()
         return parking.to_json(), 200
+    
     
 
 class Parkings(Resource):
