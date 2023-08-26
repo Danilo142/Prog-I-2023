@@ -1,6 +1,7 @@
 from .. import db
 from datetime import datetime
 from sqlalchemy.sql import func
+from .record import Record
 
 class Parking(db.Model):
     __tablename__ = 'parking'
@@ -37,3 +38,8 @@ class Parking(db.Model):
         self.available = parking_json.get('available')
         self.vehicle_patent = parking_json.get('vehicle_patent')
         return self
+    
+    def push_to_record(self, source_space_id, destination_space_id):
+       record = Record(source_space_id=source_space_id, destination_space_id=destination_space_id, timestamp=datetime.utcnow())
+       db.session.add(record)
+       db.session.commit()
