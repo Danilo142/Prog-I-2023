@@ -10,12 +10,8 @@ class User(db.Model):
     role = db.Column(db.String(50), nullable=False)
     
     #Relaciones
-    vehicles = db.relationship('Vehicle', back_populates='owner', lazy=True)
+    vehicles = db.relationship('Vehicle', back_populates='owner', cascade="all, delete-orphan", lazy=True)
     
-
-    '''def __repr__(self):
-        return '<User %r>' % self.id, self.name, self.email, self.password, self.role , self.vehicles
-    '''
 
     #Getter de la contraseña plana no permite leerla
     @property
@@ -47,15 +43,6 @@ class User(db.Model):
             "vehicles": [vehicle.to_json() for vehicle in self.vehicles]
         }
         return json_user
-    
-    '''def from_json(json_user):
-        id = json_user.get('id')
-        name = json_user.get('name')
-        email = json_user.get('email')
-        role = json_user.get('role')
-        password = json_user.get('password')
-        
-        return User(id=id, name=name, email=email, password=password, role=role)'''
     
     def from_json(json_user):
         id = json_user.get('id')

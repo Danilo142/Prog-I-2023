@@ -15,9 +15,3 @@ class Record(Resource):
         record = db.session.query(RecordModel).get_or_404(id)
         return record.to_json()
 
-    def post(self):
-        data = request.get_json()
-        record = RecordModel.from_json(data)
-        db.session.add(record)
-        db.session.commit()
-        return record.to_json(), 201
