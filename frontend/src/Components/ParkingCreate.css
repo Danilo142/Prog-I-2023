@@ -1,0 +1,69 @@
+.parking-create-container {
+    display: flex;
+    background: rgb(47,47,47);
+    background: linear-gradient(270deg, rgba(47,47,47,1) 0%, rgba(0,0,0,1) 83%);
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    height: 100vh;
+    transition: all 0.3s ease-in-out;
+    animation: fadeInDown 1s;
+}
+
+.parking-create-box {
+    background-color: #f0f0f0;
+    padding: 50px;
+    margin-left: 200px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    flex: 0.45;
+    transition: all 0.3s ease-in-out;
+}
+
+.parking-create-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.parking-create-box:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.parking-create-box h1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+}
+
+.parking-create-form-group {
+    margin-bottom: 15px;
+}
+
+.parking-create-form-group label {
+    display: block;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.parking-create-form-group input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.parking-create-box button {
+    width: 40%;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffc107;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+}

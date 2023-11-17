@@ -1,0 +1,108 @@
+/* Estilo para el contenedor principal del registro */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: rgb(136, 17, 119);
+    background: linear-gradient(90deg, rgba(136, 17, 119, 1) 0%, rgba(0, 122, 202, 1) 100%);
+    overflow: hidden;
+    flex-direction: row;
+}
+
+/* Estilo para la sección derecha (anteriormente right-section) */
+.register-left-section {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    transform: translateY(0);
+    opacity: 0.8;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+/* Estilo para animación de la sección derecha al enfocar */
+.register-container:hover .register-left-section {
+    transform: translateY(-20px);
+    opacity: 1;
+}
+
+/* Estilo para la sección izquierda (anteriormente right-section) */
+.register-right-section {
+    flex: 0.5;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-right: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 0.5s, opacity 0.5s;
+    margin-top: 80px;
+    /* Espacio entre la barra de navegación y la sección izquierda */
+}
+
+/* Estilo para animación de la sección izquierda al enfocar */
+.register-container:hover .register-right-section {
+    transform: translateY(20px);
+    opacity: 1;
+}
+
+.register-left-section h1,p{
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Estilo para los campos de entrada */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.register-right-section button {
+    background-color: #0023b0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.register-right-section button:hover {
+    background-color: #00166c;
+}
+
+/* Media Query para dispositivos con un ancho máximo de 768px (tamaño de pantalla móvil) */
+@media (max-width: 768px) {
+    .register-container {
+        flex-direction: column;
+        /* Cambiamos la dirección a columna para dispositivos móviles */
+    }
+
+    /* Estilo para la sección izquierda en dispositivos móviles */
+    .register-right-section {
+        flex: 1;
+        margin-top: 0px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 40px;
+    }
+
+    .register-left-section {
+        flex: 1;
+        margin-top: 100px;
+    }
+}
