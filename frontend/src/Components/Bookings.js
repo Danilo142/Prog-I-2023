@@ -8,26 +8,29 @@ export const Bookings = () => {
 
     const { user } = useContext(UserContext);
 
+    const userIdBooked = user.id;
+
     const [bookings, setBookings] = useState([]);
+
+    useEffect(() => {
+        fetchBookings();
+    }, []);
 
     const fetchBookings = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/bookings`);
+            const response = await axios.get(`http://localhost:5000/booking/${userIdBooked}`);
+            console.log('Info', response.data)
             setBookings(response.data);
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        fetchBookings();
-    }, []);
-
 
     const onDeleteBooking = async (bookingId) => {
         console.log(bookingId)
         try {
-            await axios.delete(`http://localhost:5000/bookings/${bookingId}`);
+            await axios.delete(`http://localhost:5000/booking/${bookingId}`);
             Swal.fire({
                 position: "top",
                 icon: "success",
@@ -49,6 +52,7 @@ export const Bookings = () => {
                     <table className="table">
                         <thead>
                             <tr>
+                                <th scope="col">ID del estacionamiento</th>
                                 <th scope="col">Número de estacionamiento</th>
                                 <th scope="col">Precio</th>
                             </tr>
@@ -56,48 +60,26 @@ export const Bookings = () => {
                         <tbody>
                             {bookings.map((booking) => (
                                 <tr key={booking.id}>
-                                    <td>{booking.spot_number}</td>
+                                    <td>{booking.id}</td>
+                                    <td>{booking.spotNumber}</td>
                                     <td>{booking.price}</td>
-                                    {
-                                        user.role === "user" ? (
-                                            <div>
-                                                <td>
-                                                    <button type="button" className="btn btn-success" 
-                                                    onClick={() => onDeleteBooking(booking.id)}>
-                                                        {" "}
-                                                        Eliminar{" "}
-                                                    </button>
-                                                </td>
-                                            </div>
-                                        ) : user.role === "admin" ? (
-                                            // admin puede editar y eliminar
-                                            <div>
-                                                <td>
-                                                    <button type="button" className="btn btn-warning">
-                                                        {" "}
-                                                        Editar{" "}
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button type="button" className="btn btn-danger">
-                                                        Eliminar
-                                                    </button>
-                                                </td>
-                                            </div>
-                                        ) : (
-                                            <></>
-                                        )
-                                    }
+                                    <td>
+                                        <button type="button" className="btn btn-success" 
+                                        onClick={() => onDeleteBooking(booking.id)}>
+                                            {" "}
+                                            Eliminar{" "}
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
-                            console.log("🚀 ~ file: Bookings.js:94 ~ onDeleteBooking ~ bookings:", bookings)
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     );
-};
 }
+}
+
 
 export default Bookings;

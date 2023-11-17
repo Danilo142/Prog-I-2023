@@ -3,8 +3,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./index.css";
 
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
+import { Navbar } from "./Components/Navbar";
+import { Footer } from "./Components/Footer";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { UserContext } from "./context/UserContext";

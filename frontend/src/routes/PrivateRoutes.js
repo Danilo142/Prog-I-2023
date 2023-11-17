@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Routes, Navigate} from "react-router-dom";
 
-import { Dashboard } from '../components/Dashboard'
-import { Home } from '../components/Home'
-import { Login } from '../components/Login'
-import { Register } from '../components/Register'
-import { ParkingCreate } from '../components/ParkingCreate';
-import { Spots } from '../components/Spots';
-import { Bookings } from '../components/Bookings';
+import { Dashboard } from '../Components/Dashboard'
+import { Home } from '../Components/Home'
+import { Login } from '../Components/Login'
+import { Register } from '../Components/Register'
+import { ParkingCreate } from '../Components/ParkingCreate';
+import { Spots } from '../Components/Spots';
+import { Bookings } from '../Components/Bookings';
 
 export const PrivateRoutes = () => {
   return (
